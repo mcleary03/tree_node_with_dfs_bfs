@@ -10,11 +10,16 @@ class PolyTreeNode
   end
 
   def parent=(node)
+    past_parent = @parent
+
+    unless @parent.nil?
+      past_parent.children.each.with_index do | child, i|
+        past_parent.children.delete_at(i) if child == self
+      end
+    end
 
     @parent = node
-
     unless @parent.nil? || node.children.include?(self)
-      #@parent.children.reject! {|el| el = value }
       node.children << self
     end
   end
