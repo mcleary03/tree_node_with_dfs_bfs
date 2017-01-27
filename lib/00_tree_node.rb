@@ -28,6 +28,14 @@ class PolyTreeNode
     @children
   end
 
+  def add_child(node)
+    node.parent=(self)
+  end
+
+  def remove_child(node)
+  end
+
+
   def value
     @value
   end
