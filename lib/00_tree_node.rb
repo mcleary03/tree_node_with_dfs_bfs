@@ -29,10 +29,12 @@ class PolyTreeNode
   end
 
   def add_child(node)
-    node.parent=(self)
+    node.parent = self
   end
 
   def remove_child(node)
+    raise if node.parent.nil?
+    node.parent = nil
   end
 
 
