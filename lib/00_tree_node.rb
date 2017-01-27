@@ -1,22 +1,18 @@
-require 'byebug'
-
 class PolyTreeNode
+  attr_reader :parent, :children, :value
+
   def initialize(value)
     @value = value
     @parent = nil
     @children = []
   end
 
-  def parent
-    @parent
-  end
-
   def parent=(node)
-    past_parent = @parent
+    return if self == node
 
     unless @parent.nil?
-      past_parent.children.each.with_index do | child, i|
-        past_parent.children.delete_at(i) if child == self
+      @parent.children.each.with_index do |child, i|
+        @parent.children.delete_at(i) if child == self
       end
     end
 
@@ -26,10 +22,6 @@ class PolyTreeNode
     end
   end
 
-  def children
-    @children
-  end
-
   def add_child(node)
     node.parent = self
   end
@@ -37,11 +29,6 @@ class PolyTreeNode
   def remove_child(node)
     raise if node.parent.nil?
     node.parent = nil
-  end
-
-
-  def value
-    @value
   end
 
   def inspect
