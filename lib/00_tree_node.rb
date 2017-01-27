@@ -48,13 +48,7 @@ class PolyTreeNode
     @value
   end
 
-# Write a #dfs(target_value) method which takes a value
-# to search for and performs the search. Write this recursively.
-# First, check the value at this node. If a node's value matches
-# the target value, return the node.
-# If not, iterate through the #children and repeat.
   def dfs(target_value)
-    p self
     return self if self.value == target_value
 
     self.children.each do |child|
@@ -64,6 +58,17 @@ class PolyTreeNode
     nil
   end
 
+  def bfs(target_value) #shift => out,   push => in
+    queue = [self]
+
+    until queue.empty?
+      current_node = queue.shift
+      current_node.children.each { |child| queue << child }
+
+      return current_node if current_node.value == target_value
+    end
+    nil
+  end
 end
 
 # a = PolyTreeNode.new("a")
