@@ -19,8 +19,21 @@ class KnightPathFinder
     build_move_tree
   end
 
+
+  # - use a queue to process nodes in FIFO order. Start with a root node; build it from the start position.
+  #
+  # Next build nodes representing positions one move away, add these to the queue. Then take the next node from the queue. Etc.
+  #
+  # Once you can build a move tree, get a code review from your TA.
+  #shift => out,   push => in
+
   def build_move_tree
     @move_tree = PolyTreeNode.new(@starting_pos)
+
+    new_move_positions(@starting_pos).each do |move|
+      @move_tree.add_child(PolyTreeNode.new(move))
+    end
+
   end
 
   def self.valid_moves(pos)
@@ -34,5 +47,5 @@ class KnightPathFinder
   end
 end
 
-x = KnightPathFinder.new
-p x.new_move_positions([3,3])
+knight = KnightPathFinder.new
+p knight.build_move_tree
